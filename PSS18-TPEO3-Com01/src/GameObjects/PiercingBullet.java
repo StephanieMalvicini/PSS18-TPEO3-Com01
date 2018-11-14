@@ -8,7 +8,7 @@ public class PiercingBullet extends Bullet {
 
     public PiercingBullet(float damage, Vector2 u) {
         setUbication(ubication);
-        daño = damage;
+        daÃ±o = damage;
         dir = new Vector2(0, -1);
         speed = 6.3f;
         sprite = SpriteDepot.LASER;

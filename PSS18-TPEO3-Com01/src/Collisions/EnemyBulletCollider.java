@@ -12,7 +12,7 @@ public class EnemyBulletCollider extends Collider {
 
     public EnemyBulletCollider(EnemyBullet o) {
         super(o);
-        v = new EnemyBulletVisitor(o.getDaño());
+        v = new EnemyBulletVisitor(o.getDaÃ±o());
         collided = new HashSet<>();
     }
 

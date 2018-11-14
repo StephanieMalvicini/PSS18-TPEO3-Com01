@@ -8,7 +8,7 @@ import javax.swing.*;
 public class BasicPlayerBullet extends PlayerBullet {
 	public BasicPlayerBullet(float d, Vector2 ubication) {
 		setUbication(ubication);
-		daño = d;
+		daÃ±o = d;
 		dir = new Vector2(0, -1);
 		speed = 9.3f;
 		sprite = SpriteDepot.LASER;

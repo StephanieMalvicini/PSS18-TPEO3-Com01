@@ -4,12 +4,12 @@ package Collisions;
 import GameObjects.Enemy;
 
 public class EnemyCollider extends Collider {
-    float daño;
+    float daÃ±o;
 
     public EnemyCollider(Enemy o, float d) {
         super(o);
-        daño = d;
-        v = new EnemyVisitor(daño);
+        daÃ±o = d;
+        v = new EnemyVisitor(daÃ±o);
     }
 
 

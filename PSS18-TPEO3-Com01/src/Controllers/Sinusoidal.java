@@ -3,8 +3,8 @@ package Controllers;
 public class Sinusoidal extends MovementPattern {
 
     public Sinusoidal() {
-        ampx = 0.000543f;
-        ampy = 0010f;
+        ampx = 0.0000243f;
+        ampy = 00010f;
     }
 
     @Override

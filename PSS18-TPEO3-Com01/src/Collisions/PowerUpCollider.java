@@ -1,6 +1,6 @@
 package Collisions;
 
-import GameObjects.DestroyableObject;
+
 import PowerUps.AbstractPU;
 
 public class PowerUpCollider extends Collider {

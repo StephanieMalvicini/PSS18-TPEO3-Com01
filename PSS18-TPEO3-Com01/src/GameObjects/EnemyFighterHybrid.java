@@ -6,36 +6,30 @@ import Map.Map;
 
 public class EnemyFighterHybrid extends EnemyFighter{
 
-    protected int enemyHealth;
+    protected float enemyHealth;
 
-    public EnemyFighterHybrid(int d){
-        enemyHealth = 200;
+    public EnemyFighterHybrid(){
+        enemyHealth = 200 * (0.3f * lvl);
         health = enemyHealth;
         Speed = 0.1f;
         speed = Speed;
         time=0;
-        ubication = new Vector2(200,00);
+        ubication = posInicial;
         dir = Vector2.ORIGIN();
-        damage = 0;
-        kamikazeDamage = 80;
-        sprite = SpriteDepot.ENEMY1;
+        damage = 20 + 0.8f * lvl;
+        kamikazeDamage = 30 + 12*lvl;
+        sprite = SpriteDepot.SHOOTERHYBRID;
         attackSpeed = fighterAttackSpeed;
         loaded = true;
-        isFiring = false;
         gunPosition = -7;
-        gunPhaseShift = 40; //TODO actualizar valores al sprite nuevo
+        gunPhaseShift = 40;
         c = new EnemyCollider(this, kamikazeDamage);
-        score = 150;
-        lvl = d;
+        score = 150 +25 * lvl;
         Map.getInstance().add(this);
     }
 
     public void update(Map map) {
         if (isAlive()) {
-            if(health>(enemyHealth/2)) {
-                checkFire(map);
-            }
-
             updatePosition(map);
             super.update(map);
         } else {

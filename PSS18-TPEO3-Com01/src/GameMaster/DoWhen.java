@@ -1,11 +1,11 @@
 package GameMaster;
 
-import GUI.IUpdatable;
+import GUI.IUpdateable;
 import Map.Map;
 
 import java.util.concurrent.Callable;
 
-public class DoWhen implements IUpdatable
+public class DoWhen implements IUpdateable
 {
     private Callable<Boolean> Condition;
     private Runnable Action;

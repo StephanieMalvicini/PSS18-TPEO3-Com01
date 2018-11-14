@@ -6,26 +6,26 @@ import Controllers.*;
 import Map.Map;
 
 public class EnemyFighterOnlyShoot extends EnemyFighter {
+
     protected static float kamikazeDamage = 80;
 
-    public EnemyFighterOnlyShoot(int d ){
+    public EnemyFighterOnlyShoot(){
 
-
-        health = 200;
+        lvl = Map.getInstance().getLevel();
+        health = 200 * (0.5f * lvl);
         speed = 0.1f;
         time=0;
-        ubication = initialPosition;
+        ubication = posInicial;
         dir = Vector2.ORIGIN();
-        damage = 5;
+        damage = 15 + 5* lvl;
+        kamikazeDamage = 20 + 10* lvl;
         sprite = SpriteDepot.ENEMY1;
         attackSpeed = fighterAttackSpeed;
         loaded = true;
-        isFiring = false;
         gunPosition = -7;
         gunPhaseShift = 40; //TODO actualizar valores al sprite nuevo
         c = new EnemyCollider(this, kamikazeDamage);
-        score = 150;
-        lvl = d;
+        score = 150 +25 * lvl;
         new FighterFireController(this);
         Map.getInstance().add(this);
     }
@@ -33,7 +33,6 @@ public class EnemyFighterOnlyShoot extends EnemyFighter {
 
     public void update(Map map) {
         if (isAlive()) {
-            checkFire(map);
             updatePosition(map);
             super.update(map);
         } else {
@@ -44,7 +43,10 @@ public class EnemyFighterOnlyShoot extends EnemyFighter {
 
     }
 
-    public float getKamikazeDamage() {
-        return kamikazeDamage;
-    }
+
+
+
+
+
+
 }

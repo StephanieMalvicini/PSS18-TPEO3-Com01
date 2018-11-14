@@ -4,7 +4,7 @@ public abstract class MovementPattern {
 
     protected float ampy;
     protected float ampx;
-    protected float t;
+    protected float t = 1;
 
 
 

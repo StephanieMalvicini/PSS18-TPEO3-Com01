@@ -5,6 +5,8 @@ import Map.Map;
 
 public class FighterFireController extends IFireController{
 
+   protected EnemyFighter controlled;
+
 
     public FighterFireController(EnemyFighter f){
         controlled = f;
@@ -19,10 +21,7 @@ public class FighterFireController extends IFireController{
         controlled.fire();
     }
 
-    public void endFire() {
-        controlled.stopFiring();
 
-    }
 
 
     protected void checkShoot()
@@ -32,10 +31,7 @@ public class FighterFireController extends IFireController{
         {
             Fire();
         }
-        else
-        {
-            endFire();
-        }
+
     }
 
 
@@ -54,7 +50,7 @@ public class FighterFireController extends IFireController{
 
     public boolean fire() {
         double r = Math.random();
-        if (r<0.58 )
+        if (r<0.28 )
             return true;
         else
             return false;

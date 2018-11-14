@@ -6,6 +6,7 @@ import java.util.LinkedList;
 public class ColliderMaster {
 
     private static ColliderMaster instance;
+    private Collection<Collider> colliders;
 
     private ColliderMaster(){
         colliders = new LinkedList<>();
@@ -17,7 +18,6 @@ public class ColliderMaster {
         return instance;
     }
 
-    private Collection<Collider> colliders;
 
     public void removeCollider(Collider c) {
         colliders.remove(c);

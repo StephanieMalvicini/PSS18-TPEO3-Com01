@@ -2,14 +2,11 @@ package Map;
 
 import javax.swing.*;
 
-import GUI.IUpdatable;
+import GUI.IUpdateable;
 import GUI.Window;
-import GameMaster.DoInFrames;
-import GameMaster.DoWhen;
 import GameObjects.DestroyableObject;
-import GameObjects.GameObject;
 
-public class GraphicObject implements IUpdatable {
+public class GraphicObject implements IUpdateable {
 	protected DestroyableObject object;
 	protected JLabel model;
 	
@@ -17,16 +14,6 @@ public class GraphicObject implements IUpdatable {
 		object = o;
 		model = l;
 	}
-	
-	public JLabel getLabel(){
-		return model;
-	}
-
-	public DestroyableObject getObject(){
-		return object;
-	}
-	
-
 
 	
 	public void update(Map map) {

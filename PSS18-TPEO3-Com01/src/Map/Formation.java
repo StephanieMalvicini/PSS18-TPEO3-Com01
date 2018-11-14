@@ -3,67 +3,97 @@ package Map;
 import Assets.Configs;
 import Assets.SpriteDepot;
 import Collisions.DummyCollider;
-import Collisions.Visitor;
+import Collisions.PowerUpVisitor;
 import Controllers.*;
 import GameObjects.*;
-import PowerUps.AbstractPowerUpFactory;
 
-import java.util.Collection;
-import java.util.LinkedList;
 
-public class Formation extends MovingObject {
+import javax.swing.*;
+import java.util.*;
 
-    protected Collection<EnemyMovementController> enemies;
-    protected AbstractPowerUpFactory puf;
+public class Formation extends Enemy {
+
+    protected List<EnemyMovementController> enemies;
     protected int lvl;
-    protected Collection<OffsetPosition>positions;
+    protected java.util.Map<EnemyMovementController, OffsetPosition> contToPositionMap;
+    protected List<AbstractControllerFactory> factories;
     Vector2 offset;
     int distX, distY;
+    boolean initialized;
 
-   public Formation(int d){
+    private int cont = 0; //Contador para que los enemigos no se activen en el primer update
+
+   public Formation(int d) {
        health = 1;
        speed = 0.19f;
-       ubication = new Vector2(200, 200);
-       Behaviour b = new EnemyBehaviour(new Sinusoidal());
+       ubication = new Vector2(00, 30);
        dir = Vector2.ORIGIN();
-       new EnemyMovementController(this, b);
+       new FormationMovementEnemyMovementController(this);
        enemies = new LinkedList<>();
        lvl = d;
-       sprite = SpriteDepot.FROZE;
+       sprite = SpriteDepot.DUMMY;
        c = new DummyCollider(this);
+       offset = new Vector2(0, 0);
+       distX = 200;
+       distY = 100;
+       initialized = false;
+       contToPositionMap = new HashMap<EnemyMovementController, OffsetPosition>();
+       createFactories();
        Map.getInstance().add(this);
-       offset = new Vector2(-20, 0);
-       distX = 180;
-       distY = 30;
-
    }
 
-    public void createEnemies() {
-        Enemy e;
-        e = new EnemyFighterOnlyShoot(lvl);
-        enemies.add(new EnemyMovementController(e, new FollowBehaviour(e, new OffsetPosition(this,offset))));
-       e = new EnemyFighterHybrid(lvl);
-       offset = offset.sum(new Vector2(distX,0));
-        enemies.add(new EnemyMovementController(e, new FollowBehaviour(e, new OffsetPosition(this, offset))));
-        e = new KamicazeEnemy(lvl);
-        offset = offset.sum(new Vector2(distX,0));
-        enemies.add(new EnemyMovementController(e, new FollowBehaviour(e, new OffsetPosition(this, offset))));
+
+
+    public void createEnemies(){
+        int x = 0;
+        EnemyMovementController c;
+        OffsetPosition p;
+        AbstractControllerFactory f = factories.get(x);
+        for (int i = 0; i < 3;i++){
+            for(int j = 0;j<5;j++){
+                offset = new Vector2(j*distX, i*distY);
+                p = new OffsetPosition(this, offset);
+
+                c = f.createController(p);
+                enemies.add(c);
+                contToPositionMap.put(c, p);
+                f = factories.get(x);
+                x++;
+
+            }
+        }
+        initialized = true;
     }
 
-
-    public void affect(Visitor v){
-       for(EnemyMovementController c : enemies){
-           c.getShip().getCollider().accept(v);
+   public void affectPowerUp(PowerUpVisitor v){
+       for (EnemyMovementController c : enemies){
+           c.accept(v);
        }
    }
 
-   private void LevelEnd(){
-       Map.getInstance().newLevel();
-   }
+
 
    public void update(Map map){
-       updatePosition(map);
-       super.update(map);
+
+       if(initialized) {
+           if (enemies.size() != 0) {
+               cont++;
+               Random rand = new Random();
+               float aux = rand.nextFloat();
+               int aux2 = rand.nextInt(enemies.size());
+               if (aux < 0.01 && cont > 300) {
+                   if (!enemies.get(aux2).isFrozen())
+                        enemies.get(aux2).activate();
+
+               }
+               updatePosition(map);
+               super.update(map);
+           } else {
+               JOptionPane.showMessageDialog(null,"Mission Acomplished!","You have defeated those aliens!",JOptionPane.INFORMATION_MESSAGE);
+               destroySelf();
+               initialized = false;
+           }
+       }
    }
 
     @Override
@@ -89,4 +119,37 @@ public class Formation extends MovingObject {
 
     }
 
+
+    private void createFactories(){
+        factories = new LinkedList<AbstractControllerFactory>();
+        factories.add(new KamikazeControllerFactory());
+        factories.add(new KamikazeControllerFactory());
+        factories.add(new KamikazeControllerFactory());
+        factories.add(new KamikazeControllerFactory());
+        factories.add(new KamikazeControllerFactory());
+
+        factories.add(new FighterControllerFactory());
+        factories.add(new FighterControllerFactory());
+        factories.add(new FighterControllerFactory());
+
+        factories.add(new FollowerControllerFactory());
+        factories.add(new FollowerControllerFactory());
+
+        factories.add(new HybridControllerFactory());
+        factories.add(new HybridControllerFactory());
+        factories.add(new HybridControllerFactory());
+
+        factories.add(new HybridFollowerControllerFactory());
+        factories.add(new HybridFollowerControllerFactory());
+    }
+
+    public void removeCont(EnemyMovementController e) {
+       enemies.remove(e);
+    }
+
+    public void destroySelf() {
+
+        Map.getInstance().remove(this);
+        Map.getInstance().newLevel();
+    }
 }

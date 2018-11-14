@@ -1,6 +1,6 @@
 package Collisions;
 
-import GameObjects.Bullet;
+
 import GameObjects.EnemyBullet;
 
 import java.util.Collection;
@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 public class EnemyBulletCollider extends Collider {
 
-    Collection<Collider> collided;
+    protected Collection<Collider> collided;
 
     public EnemyBulletCollider(EnemyBullet o) {
         super(o);

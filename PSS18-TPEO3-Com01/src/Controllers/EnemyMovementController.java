@@ -1,48 +1,17 @@
 package Controllers;
 
-import Assets.Paths;
+import Collisions.PowerUpVisitor;
+import GameObjects.Enemy;
 import Map.Map;
 
-import javax.swing.*;
-
-import GameObjects.MovingObject;
-public class EnemyMovementController extends MovementController { //TODO: se puede mejorar usando genericidad parametrica para el tipo de controlled
+public abstract class EnemyMovementController<E extends Enemy> extends MovementController<E> implements VisitableEnemyController {
 
 
 
 
-    public EnemyMovementController(MovingObject e, Behaviour be){
-        b = be;
-        controlled = e;
-
-        r = new ImageIcon(Paths.ENEMY1);
-        l = new ImageIcon(Paths.ENEMY1);
-        d = new ImageIcon(Paths.ENEMY1);
-        u = new ImageIcon(Paths.ENEMY1);
-        lu = new ImageIcon(Paths.ENEMY1);
-        ru = new ImageIcon(Paths.ENEMY1);
-        rd = new ImageIcon(Paths.ENEMY1);
-        ld = new ImageIcon(Paths.ENEMY1);
-        c = new ImageIcon(Paths.ENEMY1);
-
-
-        m = new ImageIcon[3][3];
-        m[0][0]=lu;
-        m[1][0]=u;
-        m[2][0]=ru;
-        m[0][1]=l;
-        m[1][1]=c;
-        m[2][1]=r;
-        m[0][2]=rd;
-        m[1][2]=d;
-        m[2][2]=ld;
-
+    public EnemyMovementController(){
         Map.getInstance().add(this);
     }
-
-
-
-
 
     @Override
     public void update(Map map)
@@ -56,12 +25,30 @@ public class EnemyMovementController extends MovementController { //TODO: se pue
             destroyMe(map);
     }
 
+    @Override
+    public void destroyMe(Map map) {
+        Map.getInstance().getFormation().removeCont(this);
+        super.destroyMe(map);
+    }
 
+    public abstract void activate();
 
+    public abstract void setBehaviour(Behaviour be);
 
-    public MovingObject getShip(){
-        return controlled;
+    public void accept(PowerUpVisitor v){
+        v.visitEnemyController(this);
+    }
+
+    public void Freeze() {
+        b.pause();
+    }
+
+    public void Unfreeze(){
+        b.unpause();
     }
 
 
+    public boolean isFrozen() {
+        return b.isPaused();
+    }
 }

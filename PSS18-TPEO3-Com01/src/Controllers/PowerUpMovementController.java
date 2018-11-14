@@ -13,18 +13,9 @@ public class PowerUpMovementController extends IMovementController {
         this.b = b;
         Map.getInstance().add(this);
     }
-
-
-
-
-
-
-
     protected void move(Vector2 vec)
     {
         controlled.setDirec(vec);
-
-
     }
 
     @Override

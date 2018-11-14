@@ -1,10 +1,9 @@
 package GUI;
 
-import Map.GraphicObject;
-import Map.Map;
-import Map.SuperMap;
 
-public interface IUpdatable
+import Map.Map;
+
+public interface IUpdateable
 {
     void update(Map map);
 

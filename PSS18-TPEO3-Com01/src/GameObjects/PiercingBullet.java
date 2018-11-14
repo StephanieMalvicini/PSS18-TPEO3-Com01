@@ -2,9 +2,9 @@ package GameObjects;
 
 import Assets.SpriteDepot;
 import Collisions.PiercingBulletCollider;
-import Collisions.PlayerBulletCollider;
+import Map.Map;
 
-public class PiercingBullet extends Bullet {
+public class PiercingBullet extends PlayerBullet {
 
     public PiercingBullet(float damage, Vector2 u) {
         setUbication(ubication);
@@ -15,5 +15,11 @@ public class PiercingBullet extends Bullet {
         health = 1;
         ubication = u;
         c = new PiercingBulletCollider(this);
+        Map.getInstance().add(this);
+    }
+
+    public void update(Map map) {
+        super.update(map);
+        updatePosition(map);
     }
 }

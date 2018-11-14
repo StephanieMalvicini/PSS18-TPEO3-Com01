@@ -5,7 +5,7 @@ import Map.Map;
 
 import javax.swing.*;
 
-public abstract class Bullet extends MovingObject {
+public abstract class Bullet extends Ship {
 	protected float daño;
 	
 	public float getDaño(){return daño;}
@@ -19,14 +19,11 @@ public abstract class Bullet extends MovingObject {
 
 
 
-	//public void update(){}
-
 	public void destroySelf()
 	{
 		c.destroySelf();
 		Map.getInstance().destroy(this);
 		sprite = new ImageIcon();
-		//destroyMe(Map.getInstance());//danger
 	}
 
 

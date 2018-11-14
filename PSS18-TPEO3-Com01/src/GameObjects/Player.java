@@ -30,6 +30,11 @@ public class Player extends Ship{
 		return instance;
 	}
 
+	public static Player restart() {
+		instance=null;
+		return getInstance();
+	}
+	
 	private Player() {
 		health = 200;
 		speed = playerSpeed;

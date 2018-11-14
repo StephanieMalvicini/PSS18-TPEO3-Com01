@@ -42,6 +42,20 @@ public final class Map extends SuperMap{
 		return instance;
 	}
 
+	public void restart() {
+		for(GraphicObject ob : gameobject_to_graphicobject.values()){
+			ob.destroy();
+		}
+		gameobject_to_graphicobject.clear();
+		gameobject_to_graphicobject = new HashMap<>();
+		list = new LinkedList<>();
+		list.clear();
+		toDestroy.clear();
+		toDestroy = new LinkedBlockingQueue<>(50);
+		toAdd.clear();
+		toAdd = new LinkedBlockingQueue<>(50);
+	}
+	
 	private Map(Window w) {
 		gameobject_to_graphicobject = new HashMap<>();
 		list = new LinkedList<>();

@@ -3,6 +3,7 @@ package GUI;
 import Assets.Configs;
 import Assets.Paths;
 import GameMaster.Level;
+import Main.MetodoMain;
 import Map.Map;
 
 import javax.swing.*;
@@ -16,9 +17,13 @@ public class Menu {
     protected JButton bInicio;
     protected JFrame frame;
     protected Container gameContainer,UIcontainer;
-    protected Thread l;
+    protected Level l;
 
-
+    //Atributos para el menpu de la versión 1.1
+    protected JMenuBar menuBar;
+    protected JMenu menu;
+    protected JMenuItem menuItemReset, menuItemExit;   
+    
     public static Menu getInstance(){
         if (instance==null)
             instance = new Menu();
@@ -44,7 +49,8 @@ public class Menu {
         frame.getRootPane().setSize(Configs.getConfigs().getWindowsSize());
 
 
-        frame.setSize(Configs.getConfigs().getWindowsSize());
+        Dimension d= Configs.getConfigs().getWindowsSize();
+        frame.setSize(new Dimension(d.width,d.height+20));
         frame.setResizable(false);
 
 
@@ -56,6 +62,32 @@ public class Menu {
         frame.getContentPane().add(bInicio);
         bInicio.addActionListener(new oyenteInicio());
         frame.repaint();
+        
+    	//Creación del menu de la versión 1.1
+		menuBar = new JMenuBar();
+		menu = new JMenu("Menu");
+		menuItemReset = new JMenuItem("Reset");
+		menu.add(menuItemReset);
+		menu.addSeparator();
+		menuItemExit = new JMenuItem("Exit");
+		menu.add(menuItemExit);
+		menuBar.add(menu);
+		menuBar.setVisible(false);
+		frame.setJMenuBar(menuBar);
+		
+		//Oyente Reset
+		menuItemReset.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent ev) {
+	        	l.restart();
+	        }
+		});
+		
+		//Oyente Exit
+		menuItemExit.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent ev) {
+	                System.exit(0);
+	        }
+		});
     }
 
     public void update(){
@@ -96,6 +128,7 @@ public class Menu {
     private class oyenteInicio implements ActionListener{
         public void actionPerformed(ActionEvent e){
             bInicio.setVisible(false);
+            menuBar.setVisible(true);
             newLevel();
         }
     }

@@ -3,7 +3,7 @@ package GameMaster;
 import java.util.concurrent.Callable;
 
 public class Timer implements Callable {
-    long current, ending;
+    private long current, ending;
 
     public Timer(long t){
         current = System.currentTimeMillis();

@@ -58,24 +58,9 @@ public  class Vector2
         return x==0 && y==0 ? new Vector2(0,0): prod(1/large());
     }
 
-    public Vector2 withLarge(float large)
-    {
-        return norma().prod(large);
-    }
-
     public String toString()
     {
         return "("+x+","+y+")";
-    }
-
-    public static Vector2 implicit(Vector2Int other)
-    {
-        return new Vector2(other.getX(),other.getY());
-    }
-
-    public Vector2 Deplie(Vector2 aux, float depl)
-    {
-        return new Vector2(x*aux.x , (float)(y*aux.y*Math.atan(depl)));
     }
 
     public Vector2 max(float l) {

@@ -19,7 +19,5 @@ public class EnemyBarricadeCollider extends Collider {
         super.update();
         scanCollisions();
         solveCollision();
-
-
     }
 }

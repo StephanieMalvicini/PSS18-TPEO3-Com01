@@ -8,21 +8,6 @@ import javax.swing.*;
 public abstract class Ship extends MovingObject {
 
 
-
-    public void fire() {
-        isFiring = true;
-
-    }
-
-    public void stopFiring() {
-        isFiring = false;
-    }
-
-
-
-
-
-
     @Override
     protected void updatePosition(Map map) {
         float x = ubication.getX();

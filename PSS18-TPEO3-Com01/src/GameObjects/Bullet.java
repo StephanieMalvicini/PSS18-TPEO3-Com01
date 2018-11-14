@@ -19,14 +19,11 @@ public abstract class Bullet extends MovingObject {
 
 
 
-	//public void update(){}
-
 	public void destroySelf()
 	{
 		c.destroySelf();
 		Map.getInstance().destroy(this);
 		sprite = new ImageIcon();
-		//destroyMe(Map.getInstance());//danger
 	}
 
 

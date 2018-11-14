@@ -1,6 +1,5 @@
 package Controllers;
 
-import GUI.IUpdatable;
 import GameObjects.Vector2;
 import Map.Map;
 
@@ -28,4 +27,6 @@ public abstract class IMovementController implements IController {
     public void destroyMe(Map map) {
         map.destroy(this);
     }
+
+
 }

@@ -8,16 +8,13 @@ public class MyListener implements KeyListener {
 
 
     private static MyListener instance;
-    public static MyListener Instance()
+    public static MyListener getInstance()
     {
         if(instance==null)
             instance = new MyListener();
         return  instance;
     }
 
-    //TODO: a los llamados poneles () y listo, se llaman iguales
-
-    //private final AtomicBoolean a;
 
     private final AtomicBoolean up = new AtomicBoolean(false);
     private final AtomicBoolean down = new AtomicBoolean(false);
@@ -51,11 +48,6 @@ public class MyListener implements KeyListener {
 
     private MyListener()
     {
-      /*  right=false;
-        down=false;
-        up=false;
-        left=false;
-        fire = false;*/
     }
 
     public void keyPressed(KeyEvent e) {
@@ -70,29 +62,25 @@ public class MyListener implements KeyListener {
             synchronized(right)
             {
             	right.lazySet(true);
-            }            
-            //System.out.println("r");
+            }
         }
         if(e.getKeyCode() == KeyEvent.VK_LEFT){
 			synchronized(left)
 			{
 				left.lazySet(true);
 			}
-			//System.out.println("l");
         }
         if(e.getKeyCode() == KeyEvent.VK_UP){
             synchronized(up)
             { 
             up.lazySet(true);
         	}
-           // System.out.println("u");
         }
         if(e.getKeyCode() == KeyEvent.VK_DOWN){
             synchronized(down)
             { 
 			down.lazySet(true);
 			}
-            //System.out.println("d");
         }
 
     }
@@ -110,29 +98,25 @@ public class MyListener implements KeyListener {
             synchronized(right)
             {
 				right.lazySet(false);            	
-            }            
-            //System.out.println("r --");
+            }
         }
         if(e.getKeyCode() == KeyEvent.VK_LEFT){
 			synchronized(left)
 			{
 				left.lazySet(false);				
 			}
-			//System.out.println("l --");
         }
         if(e.getKeyCode() == KeyEvent.VK_UP){
             synchronized(up)
             { 
 				up.lazySet(false);            
         	}
-           // System.out.println("u --");
         }
         if(e.getKeyCode() == KeyEvent.VK_DOWN){
             synchronized(down)
             { 
 				down.lazySet(false);			
 			}
-            //System.out.println("d --");
         }
     }
 

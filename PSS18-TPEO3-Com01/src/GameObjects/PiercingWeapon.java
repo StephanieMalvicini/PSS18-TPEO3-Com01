@@ -1,6 +1,6 @@
 package GameObjects;
 
-import Map.Map;
+
 
 public class PiercingWeapon extends Weapon{
 
@@ -13,8 +13,7 @@ public class PiercingWeapon extends Weapon{
 
     public void shoot(){
         Vector2 ubBullet = Player.getInstance().getUbication().sum(Vector2.RIGHT(gunPosition+gunPhaseShift));
-        Bullet b = new PiercingBullet(damage,ubBullet);
-        Map.getInstance().add(b);
+        new PiercingBullet(damage,ubBullet);
         gunPhaseShift *= -1;
     }
 }

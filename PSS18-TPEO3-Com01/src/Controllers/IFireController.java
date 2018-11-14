@@ -1,15 +1,17 @@
 package Controllers;
 
-import GUI.IUpdatable;
-import GameObjects.EnemyFighter;
-import GameObjects.Ship;
+
+import Map.Map;
 
 public abstract class IFireController implements IController {
 
-    EnemyFighter controlled;
-
-    public abstract void Fire();
 
 
-    public abstract void endFire();
+    public IFireController(){
+        Map.getInstance().add(this);
+    }
+
+
+
+
 }

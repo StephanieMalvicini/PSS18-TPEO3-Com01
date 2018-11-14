@@ -6,9 +6,9 @@ import Map.Map;
 import javax.swing.*;
 
 public abstract class Bullet extends MovingObject {
-	protected float daño;
+	protected float daÃ±o;
 	
-	public float getDaño(){return daño;}
+	public float getDaÃ±o(){return daÃ±o;}
 
 
 

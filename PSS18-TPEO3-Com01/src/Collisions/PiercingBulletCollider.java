@@ -10,7 +10,7 @@ public class PiercingBulletCollider extends Collider {
     Collection<Collider> collided;
     public PiercingBulletCollider(PiercingBullet o) {
         super(o);
-        v = new PiercingBulletVisitor(o.getDaño());
+        v = new PiercingBulletVisitor(o.getDaÃ±o());
         collided = new HashSet<>();
     }
 

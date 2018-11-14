@@ -7,7 +7,7 @@ public class PlayerBulletCollider extends Collider {
 
     public PlayerBulletCollider(PlayerBullet o) {
         super(o);
-        v = new PlayerBulletVisitor(o.getDaño());
+        v = new PlayerBulletVisitor(o.getDaÃ±o());
     }
 
 

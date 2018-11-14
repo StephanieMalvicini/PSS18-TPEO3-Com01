@@ -4,8 +4,8 @@ public class PiercingBulletVisitor extends PlayerBulletVisitor {
 
 
 
-    public PiercingBulletVisitor(float daño) {
-        super(daño);
+    public PiercingBulletVisitor(float daÃ±o) {
+        super(daÃ±o);
     }
 
 

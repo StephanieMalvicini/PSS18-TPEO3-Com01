@@ -3,6 +3,7 @@ package GameMaster;
 
 import Assets.Configs;
 import Controllers.*;
+import GUI.Menu;
 import GUI.MyListener;
 import GUI.Window;
 import GameObjects.*;
@@ -37,7 +38,14 @@ public class Level extends Thread{
 
 	}
 
-
+	public void esperar() {
+		seguir = false; 
+	}
+	
+	public void resumir() {
+		seguir = true; 
+	}
+	
 	public void restart() {
 		
 		seguir = false;
@@ -64,22 +72,23 @@ public class Level extends Thread{
 		long stm;
 		long latestmp;
 
-		while(seguir) {
-			stm = System.nanoTime();
-			map.update();
-			Window.GetWindow().update();
-			latestmp = System.nanoTime();
-			try
-			{
-				nanostowait = fpns-(latestmp-stm);
+		while(true) {
+			if(seguir) {
+				stm = System.nanoTime();
+				map.update();
+				Window.GetWindow().update();
+				latestmp = System.nanoTime();
+				try{
+					nanostowait = fpns-(latestmp-stm);
 
-				if(nanostowait>0)
-				{
-					Thread.sleep(nanostowait/5_00_000_0000L);
+					if(nanostowait>0){
+						Thread.sleep(nanostowait/5_00_000_0000L);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
+			Menu.getInstance().update(); 
 		}
 	}
 

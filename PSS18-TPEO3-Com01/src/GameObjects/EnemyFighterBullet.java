@@ -7,11 +7,11 @@ import javax.swing.*;
 
 public class EnemyFighterBullet extends EnemyBullet {
 
-    protected int daño;
+    protected int daÃ±o;
 
     public EnemyFighterBullet(int d, Vector2 u) {
         setUbication(u);
-        daño = d;
+        daÃ±o = d;
         dir = new Vector2(0, 1);
         speed = 18.5f;
         sprite = SpriteDepot.ENEMYBULLET1;
@@ -19,7 +19,7 @@ public class EnemyFighterBullet extends EnemyBullet {
     }
 
     @Override
-    public float getDaño() {
-        return daño;
+    public float getDaÃ±o() {
+        return daÃ±o;
     }
 }

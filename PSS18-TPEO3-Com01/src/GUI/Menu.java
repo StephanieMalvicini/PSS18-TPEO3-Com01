@@ -3,14 +3,17 @@ package GUI;
 import Assets.Configs;
 import Assets.Paths;
 import GameMaster.Level;
-import Main.MetodoMain;
-import Map.Map;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Menu {
     protected static Menu instance;
@@ -19,10 +22,16 @@ public class Menu {
     protected Container gameContainer,UIcontainer;
     protected Level l;
 
-    //Atributos para el menpu de la versión 1.1
+    //Atributos para el menu de la versión 1.1
     protected JMenuBar menuBar;
     protected JMenu menu;
-    protected JMenuItem menuItemReset, menuItemExit;   
+    protected JMenuItem menuItemReset, menuItemExit, menuItemComment;   
+    
+    //Atributos para el menu de la version 1.2
+    protected JFrame frameComment;
+    protected Container containerComment;
+    protected JButton bComment;
+    protected JTextArea textAreaComment;
     
     public static Menu getInstance(){
         if (instance==null)
@@ -69,6 +78,9 @@ public class Menu {
 		menuItemReset = new JMenuItem("Reset");
 		menu.add(menuItemReset);
 		menu.addSeparator();
+		menuItemComment = new JMenuItem("Comment");
+		menu.add(menuItemComment);
+		menu.addSeparator();
 		menuItemExit = new JMenuItem("Exit");
 		menu.add(menuItemExit);
 		menuBar.add(menu);
@@ -79,6 +91,48 @@ public class Menu {
 		menuItemReset.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent ev) {
 	        	l.restart();
+	        }
+		});
+		
+		//Oyente Comment
+		menuItemComment.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent ev) {
+	        	frameComment = new JFrame("Add a comment");
+	        	frameComment.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+	        	frameComment.setLayout(null);
+	        	frameComment.setSize(500,400);
+
+	            containerComment = frameComment.getContentPane();
+	            containerComment.setLayout(null);
+	            
+	            bComment = new JButton("Comment");
+	            bComment.setBounds(200,330,100,20);
+	            containerComment.add(bComment);
+
+	            textAreaComment = new JTextArea();
+	            textAreaComment.setBounds(5,5,475,320);
+	            containerComment.add(textAreaComment);
+	            
+	            frameComment.setVisible(true);
+	            
+	            bComment.addActionListener(new ActionListener() {
+	    	        public void actionPerformed(ActionEvent ev) {
+	    	        	frameComment.setVisible(false);
+	    	        	String usuarioDummy = "usuario";
+	    	        	String comment = textAreaComment.getText();
+	    	        	try {
+	    	        		File archivo= new File(Paths.COMMENTS.getPath());
+	    	        	    FileWriter fw = new FileWriter(archivo.getAbsolutePath(),true);
+	    	        	    fw.write(usuarioDummy+" comment: "+comment+"-");
+	    	        	    fw.close();
+	    	        	}
+	    	        	catch(IOException e) {
+	    	        		
+	    	        	}
+	    	        	
+	    	        }
+	    		});
+	            
 	        }
 		});
 		

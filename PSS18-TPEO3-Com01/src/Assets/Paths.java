@@ -25,5 +25,7 @@ public class Paths {
     public static URL PEARCE = Paths.class.getResource("Pierce.png");
     public static URL SHIELD = Paths.class.getResource("shield.png");
     public static URL DUMMY = Paths.class.getResource("Dummmy.png");
+    
+    public static URL COMMENTS = Paths.class.getResource("comments.txt");
 
 }
